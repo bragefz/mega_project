@@ -24,9 +24,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'robot_control_node = mega_project_1.robot_control_node:main',
-            'ur5e_control = mega_project_1.ur5e_control:main',
-            'controller_manager = mega_project_1.movement_manager:main',
+            'movement_controller = movement_controller.movement_controller_node:main',
         ],
     },
 )

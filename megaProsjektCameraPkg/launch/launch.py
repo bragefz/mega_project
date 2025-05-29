@@ -23,24 +23,6 @@ def generate_launch_description():
             default_value='0.0',  # Default value as string
             description='rotation of the entire coordinate system around the cameras normal axis'
         ),
-
-        DeclareLaunchArgument(
-            'space_angle',
-            default_value='0.0',  # Default value as string
-            description='rotation of the entire coordinate system around the cameras normal axis'
-        ),
-
-        DeclareLaunchArgument(
-            'home_pos_x',
-            default_value='0.2',  # Default value as string
-            description='home x pos'
-        ),
-
-        DeclareLaunchArgument(
-            'home_pos_z',
-            default_value='0.2',  # Default value as string
-            description='home z pos'
-        ),
         
         # USB Camera Node
         Node(
@@ -61,8 +43,6 @@ def generate_launch_description():
             parameters=[{
                 'camera_height': LaunchConfiguration('camera_height'),
                 'space_angle': LaunchConfiguration('space_angle'),
-                'home_pos_z': LaunchConfiguration('home_pos_z'),
-                'home_pos_x': LaunchConfiguration('home_pos_x'),
             }],
             output='screen'
         )

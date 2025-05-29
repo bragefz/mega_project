@@ -33,17 +33,11 @@ class ColorDetectionNode(Node):
         self.declare_parameter('camera_height', 30.0)  # Default value is 30.0
 
         self.declare_parameter('space_angle', 0.0)  # Default value is 0.0
-
-        self.declare_parameter('home_pos_x', 0.2)
-        self.declare_parameter('home_pos_z', 0.2)
         
         # Get the parameter value
         self.cameraHeight = self.get_parameter('camera_height').get_parameter_value().double_value
 
         self.angle = self.get_parameter('space_angle').get_parameter_value().double_value
-
-        self.home_x = self.get_parameter('home_pos_x').get_parameter_value().double_value
-        self.home_z = self.get_parameter('home_pos_z').get_parameter_value().double_value
 
         self.get_logger().info(f"Camera height set to: {self.cameraHeight}")
 
@@ -102,8 +96,8 @@ class ColorDetectionNode(Node):
         upper_blue = np.array([130, 255, 255])
 
         # Blue color range
-        lower_green = np.array([30, 25, 25])
-        upper_green = np.array([80, 255, 255])
+        lower_yellow = np.array([20, 25, 25])
+        upper_yellow = np.array([70, 255, 255])
         
         # Create masks for red and blue
         mask_red1 = cv2.inRange(hsv, lower_red1, upper_red1)
@@ -112,7 +106,7 @@ class ColorDetectionNode(Node):
         
         mask_blue = cv2.inRange(hsv, lower_blue, upper_blue)
 
-        mask_green = cv2.inRange(hsv, lower_green, upper_green)
+        mask_green = cv2.inRange(hsv, lower_yellow, upper_yellow)
 
         detected_positions = []
 
@@ -124,8 +118,8 @@ class ColorDetectionNode(Node):
             y_pos -= 0.5
             y_pos *= self.height
             x_pos, y_pos = rotate_point(x_pos,y_pos,self.angle)
-            x_pos = self.home_x+x_pos/100.0
-            y_pos = self.home_z-y_pos/100.0
+            x_pos = x_pos/100.0
+            y_pos = -y_pos/100.0
             detected_positions.extend([x_pos, y_pos])
         
         # Find contours for red objects
@@ -139,7 +133,18 @@ class ColorDetectionNode(Node):
                 cv2.circle(cv_image, center, radius, (0, 0, 255), 2)  # Red circle
                 if(len(detected_positions) == 0):
                     extendPos(x,y)
-                    
+
+        # Find contours for blue objects
+        contours_yellow, _ = cv2.findContours(mask_green, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        for cnt in contours_yellow:
+            area = cv2.contourArea(cnt)
+            if area > 500:  # Filter small objects
+                (x, y), radius = cv2.minEnclosingCircle(cnt)
+                center = (int(x), int(y))
+                radius = int(radius)
+                cv2.circle(cv_image, center, radius, (0, 255, 255), 2)  # Yellow circle
+                if(len(detected_positions) == 2):
+                    extendPos(x,y)
         
         # Find contours for blue objects
         contours_blue, _ = cv2.findContours(mask_blue, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -150,18 +155,6 @@ class ColorDetectionNode(Node):
                 center = (int(x), int(y))
                 radius = int(radius)
                 cv2.circle(cv_image, center, radius, (255, 0, 0), 2)  # Blue circle
-                if(len(detected_positions) == 2):
-                    extendPos(x,y)
-
-        # Find contours for blue objects
-        contours_green, _ = cv2.findContours(mask_green, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-        for cnt in contours_green:
-            area = cv2.contourArea(cnt)
-            if area > 500:  # Filter small objects
-                (x, y), radius = cv2.minEnclosingCircle(cnt)
-                center = (int(x), int(y))
-                radius = int(radius)
-                cv2.circle(cv_image, center, radius, (0, 255, 0), 2)  # Blue circle
                 if(len(detected_positions) == 4):
                     extendPos(x,y)
 
