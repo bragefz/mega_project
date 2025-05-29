@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(ur5_simple_controller)
+project(moveit_wrapper)
 
 # Default to C++17
 if(NOT CMAKE_CXX_STANDARD)
@@ -14,9 +14,9 @@ find_package(moveit_ros_planning_interface REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 
 # Add executable
-add_executable(ur5_simple_controller src/ur5_simple_controller.cpp)
+add_executable(moveit_wrapper_node src/moveit_wrapper_node.cpp)
 
-ament_target_dependencies(ur5_simple_controller
+ament_target_dependencies(moveit_wrapper_node
   rclcpp
   geometry_msgs
   moveit_ros_planning_interface
@@ -24,7 +24,7 @@ ament_target_dependencies(ur5_simple_controller
 )
 
 # Install executable
-install(TARGETS ur5_simple_controller
+install(TARGETS moveit_wrapper_node
   DESTINATION lib/${PROJECT_NAME}
 )
 

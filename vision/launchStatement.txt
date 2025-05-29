@@ -1,1 +1,1 @@
-ros2 launch megaProsjektCameraPkg launch.py video_device:=/dev/video2 space_angle:=0.0 home_pos_x:=0.2 home_pos_z:=0.5 camera_height:=44.4
+ros2 launch vision launch.py video_device:=/dev/video2 space_angle:=0.0 camera_height:=44.4

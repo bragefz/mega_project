@@ -59,11 +59,17 @@ class Movement_controller(Node):
         self.message_received_event = threading.Event()
 
         # Square search pattern
+        # self.search_positions = [
+        #     Point(x=-0.15, y=0.3, z=0.5),
+        #     Point(x=-0.4, y=0.3, z=0.5),
+        #     Point(x=-0.4, y=0.6, z=0.5),
+        #     Point(x=-0.15, y=0.6, z=0.5),
+        # ]
         self.search_positions = [
-            Point(x=-0.15, y=0.3, z=0.5),
-            Point(x=-0.4, y=0.3, z=0.5),
-            Point(x=-0.4, y=0.6, z=0.5),
-            Point(x=-0.15, y=0.6, z=0.5),
+            Point(x=-0.2, y=0.5, z=0.5),
+            Point(x=-0.2, y=0.5, z=0.5),
+            Point(x=-0.2, y=0.5, z=0.5),
+            Point(x=-0.2, y=0.5, z=0.5),
         ]
         self.current_search_index = 0
 
@@ -100,7 +106,7 @@ class Movement_controller(Node):
                 self.get_logger().info(f"Moving to search position {self.current_search_index}")
                 self.target_pos_pub.publish(current_pos)
                 # Wait for movement to complete 
-                time.sleep(3)  # Movement time
+                time.sleep(8)  # Movement time
                 self.current_search_index = (self.current_search_index + 1) % len(self.search_positions)
             
             if not self.searching_for_cubes:  # Check if we should stop
@@ -124,7 +130,7 @@ class Movement_controller(Node):
                 cube_pos = Point()  # Create new Point object
                 cube_pos.x = reference_position.x + float(msg.data[i])
                 cube_pos.y = reference_position.y + float(msg.data[i + 1])
-                cube_pos.z = 0.09  
+                cube_pos.z = 0.09
                 target_positions.append(cube_pos)
 
         # Go back to the position the robot was in when it saw the cubes
@@ -136,13 +142,13 @@ class Movement_controller(Node):
         for pos in target_positions: 
             self.target_pos_pub.publish(pos)
             self.get_logger().info(f"Published target_position: x={pos.x}, y={pos.y}, z={pos.z}")
-            time.sleep(4)   #################################### Lage parameter som kan endres. Prøve om det funker uten sleep i det hele tatt 
+            time.sleep(5)   #################################### Lage parameter som kan endres. Prøve om det funker uten sleep i det hele tatt 
 
     def run_controller(self):       
         self.target_pos_pub.publish(self.search_positions[0])
         self.current_search_index += 1
         # Start search 
-        threading.Timer(5.0, lambda: (
+        threading.Timer(8.0, lambda: (
             self.get_logger().info("Starting cube search pattern..."),
             threading.Thread(target=self.search_loop, daemon=True).start()
         )).start()

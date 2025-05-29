@@ -7,7 +7,6 @@ import cv2
 import numpy as np
 import math
 
-
 def rotate_point(x, y, angle_degrees):
     """Rotate a 2D point (x, y) counter-clockwise around the origin by a given angle (in degrees)."""
     theta = math.radians(angle_degrees)  # Convert angle to radians
@@ -28,7 +27,7 @@ class ColorDetectionNode(Node):
         """
         Constructs all the necessary attributes for the color detection node.
         """
-        super().__init__('color_detection')
+        super().__init__('vision_node')
 
         self.declare_parameter('camera_height', 30.0)  # Default value is 30.0
 

@@ -8,22 +8,22 @@
 
 
 // Create a logger instance for this node to output messages
-static const rclcpp::Logger LOGGER = rclcpp::get_logger("ur5_simple_controller");
+static const rclcpp::Logger LOGGER = rclcpp::get_logger("moveit_wrapper_node");
 
 // Main node class for UR5 robot control
 class UR5SimpleController : public rclcpp::Node {
 public:
     // Constructor with node configuration options
     UR5SimpleController(const rclcpp::NodeOptions& options)
-        : Node("ur5_simple_controller", options),  // Initialize base Node class with name
+        : Node("moveit_wrapper_node", options),  // Initialize base Node class with name
           // Initialize MoveIt interface for the UR5 manipulator arm (move group)
           move_group(std::shared_ptr<rclcpp::Node>(this), "ur_manipulator")
     {
         // Configure MoveIt planning parameters:
         move_group.setPlanningTime(10.0);  // Maximum time allowed for planning (seconds)
         move_group.setNumPlanningAttempts(50);  // Number of planning attempts before failing
-        move_group.setGoalPositionTolerance(0.05);  // Acceptable position error (meters)
-        move_group.setGoalOrientationTolerance(0.05);  // Acceptable orientation error (radians)
+        move_group.setGoalPositionTolerance(0.0005);  // Acceptable position error (meters)
+        move_group.setGoalOrientationTolerance(0.0005);  // Acceptable orientation error (radians)
 
         // Create a subscription to receive target positions:
         pos_sub = this->create_subscription<geometry_msgs::msg::Point>(

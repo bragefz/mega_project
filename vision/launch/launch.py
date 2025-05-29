@@ -37,8 +37,8 @@ def generate_launch_description():
         
         # Gaussian Blur Node
         Node(
-            package='megaProsjektCameraPkg',  # Replace with your actual package name
-            executable='visionNode',
+            package='vision',  # Replace with your actual package name
+            executable='vision_node',
             name='vision_node',
             parameters=[{
                 'camera_height': LaunchConfiguration('camera_height'),
