@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>moveit_wrapper</name>
+  <version>0.1.0</version>
+  <description>Simple UR5 controller that accepts x,y,z coordinates</description>
+
+  <maintainer email="vegardbp@gmail.com">Vegard Børve Pettersen</maintainer>
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>geometry_msgs</depend>
+  <depend>moveit_ros_planning_interface</depend>
+  <depend>tf2_geometry_msgs</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

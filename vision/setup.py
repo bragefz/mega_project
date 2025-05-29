@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 import os
 from glob import glob
 
-package_name = 'megaProsjektCameraPkg'
+package_name = 'vision'
 
 setup(
     name=package_name,
@@ -24,7 +24,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'visionNode = megaProsjektCameraPkg.visionNode:main',
+            'vision_node = vision.vision_node:main',
         ],
     },
 )
