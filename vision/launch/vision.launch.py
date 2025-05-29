@@ -4,6 +4,36 @@ from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 
 def generate_launch_description():
+
+    config_file = DeclareLaunchArgument(
+        'config_filepath',
+        default_value = '',
+        description = 'path to config file in bringup'
+    )
+
+    usb_cam_node = Node(
+        package = 'usb_camera',
+        executable = 'usb_camera_node_exe',
+        name = 'usb_cam_node',
+        parameters=[LaunchConfiguration('config_filepath')],
+        output='screen'
+    )
+
+    vision_node = Node(
+        package='vision',
+        executable='vision_node',
+        name='vision_node',
+        parameters=[LaunchConfiguration('config_filepath')],
+        output='screen'
+    )
+
+    return LaunchDescription([
+        config_file,
+        usb_cam_node,
+        vision_node
+    ])
+
+"""
     return LaunchDescription([
         # Declare the video device argument with default value
         DeclareLaunchArgument(
@@ -37,8 +67,8 @@ def generate_launch_description():
         
         # Gaussian Blur Node
         Node(
-            package='megaProsjektCameraPkg',  # Replace with your actual package name
-            executable='visionNode',
+            package='vision',  # Replace with your actual package name
+            executable='vision_node',
             name='vision_node',
             parameters=[{
                 'camera_height': LaunchConfiguration('camera_height'),
@@ -47,3 +77,4 @@ def generate_launch_description():
             output='screen'
         )
     ])
+"""

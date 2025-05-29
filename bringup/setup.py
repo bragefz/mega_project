@@ -12,7 +12,7 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        (os.path.join('share', 'bringup', 'launch'), glob('launch/*.launch.py')),
+        (os.path.join('share', 'bringup', 'launch'), glob('launch/*.vision.launch.py')),
         (os.path.join('share', 'bringup', 'config'), glob('config/*.yaml')),
     ],
 

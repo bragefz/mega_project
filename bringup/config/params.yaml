@@ -1,2 +1,14 @@
-qube_height : 0.09
-max_move_time : 3.0
+
+movement_controller:
+  ros__parameters:
+    qube_height : 0.09
+    max_move_time : 3.0
+
+vision_node:
+  ros__parameters:
+    space_angle: 90
+    camera_height: 36
+
+usb_cam_node:
+  ros__parameters:
+    video_device: '/dev/video4'
