@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 import os
 from glob import glob
 
-package_name = 'mega_project_1'
+package_name = 'movement_controller'
 
 setup(
     name=package_name,
