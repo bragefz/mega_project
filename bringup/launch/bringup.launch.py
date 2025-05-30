@@ -21,16 +21,7 @@ def generate_launch_description():
 
     camera_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(camera_pkg, 'launch', 'camera.launch.py')
-        ),
-        launch_arguments={
-            'config_filepath': config
-        }.items()
-    )
-
-    robot_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(robot_pkg, 'launch', 'movement_controller.launch.py')
+            os.path.join(camera_pkg, 'launch', 'vision.launch.py')
         ),
         launch_arguments={
             'config_filepath': config
@@ -43,8 +34,17 @@ def generate_launch_description():
         )
     )
 
+    robot_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(robot_pkg, 'launch', 'movement_controller.launch.py')
+        ),
+        launch_arguments={
+            'config_filepath': config
+        }.items()
+    )
+
     return LaunchDescription([
         camera_launch,
+        wrapper_launch,
         robot_launch,
-        wrapper_launch
     ])
