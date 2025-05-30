@@ -12,8 +12,8 @@ def generate_launch_description():
     )
 
     usb_cam_node = Node(
-        package = 'usb_camera',
-        executable = 'usb_camera_node_exe',
+        package = 'usb_cam',
+        executable = 'usb_cam_node_exe',
         name = 'usb_cam_node',
         parameters=[LaunchConfiguration('config_filepath')],
         output='screen'

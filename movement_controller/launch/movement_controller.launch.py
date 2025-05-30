@@ -13,7 +13,7 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='movement_controller',
-            executable='Movement_manager',
+            executable='movement_controller_node',
             name='movement_controller',
             parameters=[LaunchConfiguration('config_filepath')],
             output='screen',
