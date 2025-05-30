@@ -35,7 +35,7 @@ public:
             });
 
         // Log initialization message
-        RCLCPP_INFO(LOGGER, "UR5 Simple Controller initialized");
+        RCLCPP_INFO(LOGGER, "moveit_wrapper_node initialized");
     }
 
 private:

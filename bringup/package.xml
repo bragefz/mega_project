@@ -7,7 +7,8 @@
   <maintainer email="eiriksaenz@hotmail.com">eike</maintainer>
   <license>Apache-2.0</license>
 
-  <exec_depend>megaProsjektCameraPkg</exec_depend>
+  <exec_depend>vision</exec_depend>
+  <exec_depend>moveit_wrapper</exec_depend>
   <exec_depend>movement_controller</exec_depend>
 
   <exec_depend>launch</exec_depend>

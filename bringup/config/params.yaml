@@ -7,9 +7,9 @@ movement_controller:
 
 vision_node:
   ros__parameters:
-    space_angle: 90
-    camera_height: 36
+    space_angle: 90.0
+    camera_height: 30.0
 
 usb_cam_node:
   ros__parameters:
-    video_device: '/dev/video4'
+    video_device: /dev/video4
